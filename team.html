@@ -42,9 +42,25 @@
     .anim-word.active { opacity:1; transform:translateY(0); pointer-events:auto; }
     .anim-word.exit { opacity:0; transform:translateY(-45px); transition:opacity .28s ease, transform .32s cubic-bezier(.55,.06,.68,.19); }
 
+    .team-dots { display:none; }
+
     /* ── Mobile ≤768px ──────────────────── */
     @media(max-width:768px){
-      .team-grid { grid-template-columns:1fr 1fr; gap:14px; margin-top:32px; }
+      .team-section { overflow-x:hidden !important; }
+      .team-grid {
+        display:flex !important; flex-direction:row !important;
+        grid-template-columns:none !important; gap:12px;
+        overflow-x:auto; scroll-snap-type:x mandatory;
+        -webkit-overflow-scrolling:touch; scrollbar-width:none;
+        margin:28px -18px 0; padding-left:18px; padding-right:40px;
+        width:calc(100% + 36px);
+      }
+      .team-grid::-webkit-scrollbar { display:none; }
+      .team-grid .team-card { opacity:1 !important; transform:none !important; }
+      .team-card {
+        width:72vw; min-width:72vw; flex-shrink:0; scroll-snap-align:start;
+        border-radius:16px;
+      }
       .team-photo { aspect-ratio:3/2; }
       .team-initial { font-size:2.8rem; }
       .team-info { padding:16px 16px 18px; }
@@ -53,6 +69,9 @@
       .team-bio { font-size:.78rem; line-height:1.55; }
       .team-links { margin-top:12px; gap:7px; }
       .team-link { width:30px; height:30px; border-radius:7px; font-size:.72rem; }
+      .team-dots { display:flex !important; justify-content:center; gap:6px; margin-top:14px; }
+      .team-dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.15); transition:background .3s, width .3s; }
+      .team-dot.active { width:20px; border-radius:3px; background:var(--or); }
       .values-grid { grid-template-columns:1fr 1fr; gap:12px; margin-top:32px; }
       .value-card { padding:20px 16px; border-radius:14px; }
       .value-icon { font-size:1.6rem; margin-bottom:10px; }
@@ -67,10 +86,6 @@
       .hero-anim-wrap { height:2.3em; }
     }
     @media(max-width:480px){
-      .team-grid { grid-template-columns:1fr; gap:12px; }
-      .team-info { padding:14px 14px 16px; }
-      .team-name { font-size:.9rem; }
-      .team-bio { font-size:.75rem; }
       .values-grid { grid-template-columns:1fr; gap:10px; }
       .value-card { padding:18px 14px; }
       .value-title { font-size:.84rem; }
@@ -154,7 +169,7 @@
 </section>
 
 <!-- TEAM GRID -->
-<section class="section">
+<section class="section team-section">
   <div class="reveal">
     <div class="section-label">Das Team</div>
     <h2 class="h2">Ihre Ansprechpartner</h2>
@@ -203,9 +218,15 @@
       </div>
     </div>
   </div>
+  <div class="team-dots">
+    <span class="team-dot active"></span>
+    <span class="team-dot"></span>
+    <span class="team-dot"></span>
+    <span class="team-dot"></span>
+    <span class="team-dot"></span>
+    <span class="team-dot"></span>
+  </div>
 </section>
-
-
 
 <!-- CTA -->
 <div class="cta-wrap">
@@ -295,6 +316,18 @@ document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click
   document.body.classList.remove('nav-open');
   document.querySelectorAll('.has-drop.open').forEach(el => el.classList.remove('open'));
 }));
+
+/* ── Swipe dots for team cards ── */
+(function() {
+  const grid = document.querySelector('.team-grid');
+  const dots = document.querySelectorAll('.team-dot');
+  if (!grid || !dots.length) return;
+  grid.addEventListener('scroll', function() {
+    const cardWidth = grid.firstElementChild.offsetWidth + 12;
+    const idx = Math.round(grid.scrollLeft / cardWidth);
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  }, { passive: true });
+})();
 </script>
 </body>
 </html>
