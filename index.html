@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grentis GmbH – Finance You Can Trust</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ═══════════════════════════════════════════
+   PAGE-LEVEL TOKENS
+   ═══════════════════════════════════════════ */
+:root {
+  --or-soft: rgba(253,64,0,.08);
+  --line:    rgba(255,255,255,.06);
+  --line2:   rgba(255,255,255,.10);
+  --glass:   rgba(14,14,14,.82);
+}
+
+/* ═══════════════════════════════════════════
+   FINE GRID TEXTURE (subtle precision feel)
+   ═══════════════════════════════════════════ */
+.grid-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 40%, transparent 100%);
+}
+
+/* ═══════════════════════════════════════════
+   HERO — CENTERED + ANIMATED WORD
+   ═══════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: calc(var(--nav-h) + 80px) 60px 100px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0 0 28px 28px;
+  background: linear-gradient(to bottom, #080808, transparent 30%, rgba(253,64,0,.04) 70%, rgba(253,64,0,.10) 100%);
+}
+
+/* Radial accent — brand-colored stage at bottom */
+.hero-radial {
+  position: absolute;
+  left: 50%; top: calc(100% - 150px);
+  height: 750px; width: 140%; max-width: 1600px;
+  transform: translateX(-50%);
+  border-radius: 100%;
+  background: radial-gradient(closest-side, #080808 82%, rgba(253,64,0,.18));
+  pointer-events: none; z-index: 0;
+  animation: hero-fade-up 1s ease both;
+  animation-delay: .3s;
+  opacity: 0;
+}
+@keyframes hero-fade-up {
+  0% { opacity:0; transform:translateX(-50%) translateY(40px); }
+  100% { opacity:1; transform:translateX(-50%) translateY(0); }
+}
+
+.hero-glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% -5%, rgba(253,64,0,.07) 0%, transparent 60%),
+    radial-gradient(ellipse 30% 40% at 85% 85%, rgba(140,35,0,.05) 0%, transparent 55%);
+}
+
+/* Eyebrow */
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: rgba(253,64,0,.08);
+  border: 1px solid rgba(253,64,0,.2);
+  padding: 6px 16px 6px 8px;
+  border-radius: 100px;
+  font-size: .68rem; font-weight: 700;
+  color: var(--or); letter-spacing: .1em; text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.hero-eyebrow-dot {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: rgba(253,64,0,.16);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.hero-eyebrow-dot::after {
+  content: ''; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--or);
+  animation: pulse-dot 2.2s ease-in-out infinite;
+}
+
+/* Headline */
+.hero-h1 {
+  font-size: clamp(3.2rem, 5.2vw, 5.6rem);
+  font-weight: 800;
+  letter-spacing: -.05em;
+  line-height: 1.06;
+  color: #fff;
+  margin-bottom: 0;
+  max-width: 820px;
+}
+
+/* Animated rotating word */
+.hero-anim-wrap {
+  display: block;
+  position: relative;
+  height: 1.15em;
+  overflow-x: visible;
+  overflow-y: clip;
+  margin-top: .06em;
+}
+.anim-word {
+  position: absolute;
+  inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--or);
+  opacity: 0;
+  transform: translateY(55px);
+  transition: opacity .45s ease, transform .6s cubic-bezier(.34,1.56,.64,1);
+  pointer-events: none;
+  white-space: nowrap;
+}
+.anim-word.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.anim-word.exit {
+  opacity: 0;
+  transform: translateY(-45px);
+  transition: opacity .28s ease, transform .32s cubic-bezier(.55,.06,.68,.19);
+}
+
+/* Subtitle */
+.hero-sub {
+  font-size: clamp(.95rem, 1.4vw, 1.1rem);
+  font-weight: 500;
+  color: rgba(255,255,255,.48);
+  letter-spacing: -.01em;
+  margin: 32px auto 44px;
+  line-height: 1.7;
+  max-width: 560px;
+}
+
+/* CTA row */
+.hero-cta-row {
+  display: flex; align-items: center; justify-content: center; gap: 13px;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+}
+.btn-hero-primary {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--or); color: #fff;
+  padding: 14px 26px; border-radius: 10px;
+  font-size: .9rem; font-weight: 700; font-family: inherit;
+  text-decoration: none; white-space: nowrap;
+  transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s;
+}
+.btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(253,64,0,.38); }
+.btn-hero-ghost {
+  display: inline-flex; align-items: center; gap: 9px;
+  border: 1px solid rgba(255,255,255,.16); color: rgba(255,255,255,.68);
+  padding: 14px 24px; border-radius: 10px;
+  font-size: .9rem; font-weight: 600; font-family: inherit;
+  text-decoration: none; white-space: nowrap;
+  transition: border-color .2s, color .2s, transform .25s cubic-bezier(.34,1.56,.64,1);
+}
+.btn-hero-ghost:hover { border-color: rgba(255,255,255,.36); color: #fff; transform: translateY(-1px); }
+
+/* Logo strip */
+.hero-logos-section { text-align: center; }
+.hero-logos-label {
+  font-size: .65rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .13em;
+  color: rgba(255,255,255,.24);
+  margin-bottom: 16px;
+}
+.hero-logos-chips { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.logo-chip {
+  height: 48px; padding: 0 18px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  transition: background .22s, border-color .22s, transform .25s cubic-bezier(.34,1.56,.64,1);
+}
+.logo-chip:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.17); transform: translateY(-2px); }
+.logo-chip img { height: 26px; width: auto; max-width: 110px; object-fit: contain; display: block; }
+
+  40%       { transform: translateX(-50%) translateY(calc(-50% - 26px)); }
+  75%       { transform: translateX(-50%) translateY(calc(-50% + 13px)); }
+}
+
+/* ═══════════════════════════════════════════
+   SECTION DIVIDER
+   ═══════════════════════════════════════════ */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line2) 30%, var(--line2) 70%, transparent);
+  margin: 0 60px;
+}
+
+/* ═══════════════════════════════════════════
+   VIDEO SECTION
+   ═══════════════════════════════════════════ */
+.video-section { padding: 80px 60px; }
+.video-header {
+  text-align: center;
+  margin-bottom: 52px;
+}
+.video-wrap { max-width: 860px; margin: 0 auto; }
+.video-player {
+  border-radius: 20px;
+  overflow: hidden;
+  background: #0d0d0d;
+  border: 1px solid var(--line2);
+  aspect-ratio: 16/9;
+  position: relative;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 40px 100px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.04);
+}
+.video-grid-overlay {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.video-glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(253,64,0,.1) 0%, transparent 70%);
+}
+.video-corner {
+  position: absolute;
+  width: 16px; height: 16px;
+  border-color: rgba(253,64,0,.5);
+  border-style: solid;
+  border-width: 0;
+}
+.video-corner.tl { top: 16px; left: 16px; border-top-width: 2px; border-left-width: 2px; }
+.video-corner.tr { top: 16px; right: 16px; border-top-width: 2px; border-right-width: 2px; }
+.video-corner.bl { bottom: 16px; left: 16px; border-bottom-width: 2px; border-left-width: 2px; }
+.video-corner.br { bottom: 16px; right: 16px; border-bottom-width: 2px; border-right-width: 2px; }
+.play-btn {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 20px;
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.video-player:hover .play-btn { transform: scale(1.07); }
+.play-ring-outer {
+  width: 88px; height: 88px; border-radius: 50%;
+  background: rgba(253,64,0,.12);
+  border: 1px solid rgba(253,64,0,.3);
+  display: flex; align-items: center; justify-content: center;
+  animation: pulse-ring 3.5s ease-in-out infinite;
+}
+@keyframes pulse-ring {
+  0%,100% { box-shadow: 0 0 0 0 rgba(253,64,0,.2); }
+  50%      { box-shadow: 0 0 0 18px rgba(253,64,0,0); }
+}
+.play-inner {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--or);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 12px 36px rgba(253,64,0,.4);
+}
+.play-inner svg { width: 22px; height: 22px; fill: #fff; margin-left: 3px; }
+.play-label {
+  font-size: .82rem; font-weight: 600;
+  color: rgba(255,255,255,.5);
+  letter-spacing: .04em;
+}
+.video-badge {
+  position: absolute; bottom: 18px; right: 20px; z-index: 2;
+  display: flex; align-items: center; gap: 7px;
+  background: var(--glass);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--line2);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: .74rem; font-weight: 700;
+}
+.video-badge-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--or);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════
+   TRUST — ZAHLEN
+   ═══════════════════════════════════════════ */
+.trust-section { padding: 0 60px 80px; }
+.trust-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* Left column */
+.trust-left { display: flex; flex-direction: column; }
+.trust-big-pct {
+  font-size: clamp(3.8rem, 7.5vw, 6.5rem);
+  font-weight: 900;
+  letter-spacing: -.1em;
+  color: #fff;
+  line-height: .88;
+  margin: 16px 0 0;
+}
+.trust-big-pct .pct-mark { color: var(--or); }
+.trust-pct-sub {
+  font-size: .9rem;
+  font-weight: 400;
+  color: rgba(255,255,255,.55);
+  line-height: 1.6;
+  padding-left: 12px;
+  border-left: 2px solid var(--or);
+  margin: 16px 0 28px;
+  max-width: 360px;
+}
+.trust-rule {
+  height: 1px;
+  background: rgba(255,255,255,.07);
+  margin-bottom: 24px;
+}
+.trust-point {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+.trust-point:last-of-type { margin-bottom: 0; }
+.tp-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.tp-head::before {
+  content: '';
+  width: 16px; height: 2px;
+  background: var(--or);
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+.tp-title { font-size: .92rem; font-weight: 700; letter-spacing: -.01em; color: #fff; }
+.tp-text { font-size: .84rem; color: rgba(255,255,255,.5); line-height: 1.72; padding-left: 26px; }
+
+/* Right column: metric cards */
+.trust-cards { display: flex; flex-direction: column; gap: 8px; }
+.trust-metric-card {
+  background: rgba(255,255,255,.02);
+  border: 1px solid rgba(255,255,255,.06);
+  border-left: 2px solid var(--or);
+  border-radius: 12px;
+  padding: 20px 24px 18px 22px;
+  transition: background .25s, border-color .25s;
+}
+.trust-metric-card:hover {
+  background: rgba(255,255,255,.035);
+  border-color: rgba(255,255,255,.1);
+  border-left-color: var(--or);
+}
+.tmc-label {
+  font-size: .62rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .12em;
+  color: rgba(255,255,255,.32);
+  margin-bottom: 7px;
+}
+.tmc-value {
+  font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+  font-weight: 800;
+  letter-spacing: -.05em;
+  color: #fff;
+  line-height: 1;
+}
+
+/* ═══════════════════════════════════════════
+   KUNDEN
+   ═══════════════════════════════════════════ */
+.kunden-section { padding: 0 60px 100px; }
+.kunden-card {
+  background: var(--s1);
+  border: 1px solid var(--bd);
+  border-radius: 24px;
+  padding: 64px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: center;
+  position: relative; overflow: hidden;
+}
+.kunden-card-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 50% 80% at 80% 50%, rgba(253,64,0,.055) 0%, transparent 65%),
+    radial-gradient(ellipse 30% 50% at 10% 50%, rgba(253,64,0,.03)  0%, transparent 60%);
+}
+/* faint grid in background */
+.kunden-grid-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: .5;
+}
+.kunden-label { margin-bottom: 16px; }
+.kunden-h2 {
+  font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -.045em;
+  line-height: 1.08;
+  margin-bottom: 20px;
+  position: relative; z-index: 1;
+}
+.kunden-h2 em { font-style: normal; color: var(--or); }
+.kunden-desc {
+  font-size: .9rem; color: var(--mu);
+  line-height: 1.8; margin-bottom: 28px;
+  position: relative; z-index: 1;
+  max-width: 420px;
+}
+.kunden-desc strong { color: rgba(255,255,255,.85); font-weight: 600; }
+.kunden-cta {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: .88rem; font-weight: 700;
+  color: var(--or);
+  transition: gap .2s;
+  position: relative; z-index: 1;
+}
+.kunden-cta:hover { gap: 14px; }
+.kunden-cta svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2; fill: none; }
+
+/* Logo grid */
+.kunden-logos-side { position: relative; z-index: 1; }
+.logo-grid-4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.logo-grid-cell {
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px 16px;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 76px;
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s;
+  box-shadow: 0 2px 16px rgba(0,0,0,.18);
+}
+.logo-grid-cell:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,.28); }
+.logo-grid-cell img {
+  max-height: 44px;
+  max-width: 130px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+.logo-more {
+  margin-top: 14px;
+  text-align: center;
+  font-size: .75rem;
+  color: rgba(255,255,255,.3);
+  font-weight: 500;
+  letter-spacing: .03em;
+}
+
+/* ═══════════════════════════════════════════
+   CTA
+   ═══════════════════════════════════════════ */
+.cta-outer { padding: 0 60px 100px; }
+.cta-card {
+  border-radius: 20px;
+  background: var(--or);
+  padding: 52px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  position: relative; overflow: hidden;
+}
+/* Topographic-style circles */
+.cta-topo {
+  position: absolute; top: -140px; right: -140px;
+  width: 480px; height: 480px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.12);
+  pointer-events: none;
+}
+.cta-topo::before {
+  content: '';
+  position: absolute; inset: 30px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.1);
+}
+.cta-topo::after {
+  content: '';
+  position: absolute; inset: 70px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.08);
+}
+.cta-bottom-circle {
+  position: absolute; bottom: -100px; left: 38%;
+  width: 300px; height: 300px; border-radius: 50%;
+  background: rgba(255,255,255,.07);
+  pointer-events: none;
+}
+.cta-left { position: relative; z-index: 1; }
+.cta-eyebrow {
+  font-size: .68rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .12em;
+  color: rgba(255,255,255,.65);
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.cta-eyebrow::before {
+  content: ''; width: 16px; height: 1px;
+  background: rgba(255,255,255,.5);
+}
+.cta-h2 {
+  font-size: clamp(2rem, 3.2vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -.05em;
+  line-height: 1.07;
+  color: #fff;
+  margin-bottom: 16px;
+}
+.cta-p {
+  font-size: .92rem;
+  color: rgba(255,255,255,.78);
+  line-height: 1.75;
+}
+.cta-btns { position: relative; z-index: 1; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+
+.btn-cta-white {
+  background: #fff; color: var(--or);
+  padding: 12px 22px; border-radius: 9px;
+  font-size: .88rem; font-weight: 800; font-family: inherit;
+  border: none; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; white-space: nowrap;
+  transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s;
+}
+.btn-cta-white:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(0,0,0,.2); }
+.btn-cta-ghost {
+  background: rgba(255,255,255,.12); color: #fff;
+  padding: 12px 22px; border-radius: 9px;
+  font-size: .88rem; font-weight: 700; font-family: inherit;
+  border: 1px solid rgba(255,255,255,.2); cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; white-space: nowrap;
+  transition: background .2s, transform .25s cubic-bezier(.34,1.56,.64,1);
+}
+.btn-cta-ghost:hover { background: rgba(255,255,255,.2); transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════ NAV ════════════════════════ -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo"><img src="Brand_assets/Logo.png" alt="Grentis" class="nav-logo-img"></a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li class="has-drop">
+      <a href="#">Leistungen <svg class="chev" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="drop">
+        <a href="steuerkanzleien.html"><span class="drop-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--or)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="1"/><path d="M9 22v-5h6v5M9 6h1M14 6h1M9 10h1M14 10h1M9 14h1M14 14h1"/></svg></span>Für Steuerberatungskanzleien</a>
+        <a href="unternehmen.html"><span class="drop-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--or)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2"/><line x1="2" y1="13" x2="22" y2="13"/></svg></span>Für Unternehmen</a>
+        <div class="drop-divider"></div>
+        <a href="pduk.html"><span class="drop-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--or)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.6 9.4 8 10.5C16.4 21.4 20 17 20 12V6l-8-4z"/><polyline points="9 12 11 14 15 10"/></svg></span>Pauschaldotierte Unterstützungskasse</a>
+      </div>
+    </li>
+    <li class="has-drop">
+      <a href="#">Über Grentis <svg class="chev" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="drop">
+        <a href="team.html"><span class="drop-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--or)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><circle cx="17" cy="7" r="3"/><path d="M21 21v-2a3 3 0 0 0-3-3"/></svg></span>Unser Team</a>
+        <a href="karriere.html"><span class="drop-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--or)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span>Stellenangebote</a>
+      </div>
+    </li>
+    <li><a href="referenzen.html">Referenzen</a></li>
+    <li><a href="kontakt.html">Kontakt</a></li>
+      <li class="nav-mobile-cta" style="display:none;"><a href="potenzialrechner.html" style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--or);color:#fff;padding:14px 20px;border-radius:10px;font-size:.88rem;font-weight:700;margin-top:12px;">Potenzialrechner</a></li>
+  </ul>
+  <a href="potenzialrechner.html" class="btn-nav">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="12" y2="18"/></svg>
+    Potenzialrechner
+  </a>
+  <button class="nav-toggle" aria-label="Menü" onclick="document.body.classList.toggle('nav-open')"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-overlay" onclick="document.body.classList.remove('nav-open')"></div>
+
+<!-- ════════════════════════ HERO ════════════════════════ -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grid"></div>
+  <div class="grain"></div>
+  <div class="hero-radial"></div>
+
+  <div class="hero-content">
+    <!-- Headline with animated rotating word -->
+    <h1 class="hero-h1">
+      Ihr Unternehmen.
+      <span class="hero-anim-wrap">
+        <span class="anim-word">Mehr Fachkräfte.</span>
+        <span class="anim-word">Mehr Rendite.</span>
+        <span class="anim-word">Mehr Liquidität.</span>
+        <span class="anim-word">Mehr Kapital.</span>
+        <span class="anim-word">Mehr Zukunft.</span>
+      </span>
+    </h1>
+
+    <p class="hero-sub">Durch Ihre eigene Unternehmensbank. Fachkräfte binden, Steuern sparen und Kapital langfristig sichern — mit dem bewährten Grentis-Konzept.</p>
+
+    <div class="hero-cta-row">
+      <a href="potenzialrechner.html" class="btn-hero-primary">
+        Kostenfreie Potenzialanalyse starten
+        <svg width="14" height="14" viewBox="0 0 15 15" fill="none"><path d="M2.5 7.5h10M8.5 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="kontakt.html#kalender" class="btn-hero-ghost">Beratungsgespräch vereinbaren</a>
+    </div>
+
+    <!-- Logo strip -->
+    <div class="hero-logos-section">
+      <div class="hero-logos-label">Über 500+ Mandanten vertrauen dem Grentis-Konzept</div>
+      <div class="hero-logos-chips">
+        <div class="logo-chip"><img src="Mcdonalds.png" alt="McDonald's"></div>
+        <div class="logo-chip"><img src="Rewe.png" alt="REWE"></div>
+        <div class="logo-chip"><img src="Edeka.png" alt="EDEKA"></div>
+        <div class="logo-chip"><img src="Apollo.png" alt="Apollo Optik"></div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ════════════════════════ VIDEO ════════════════════════ -->
+<section class="video-section" id="erklaervideo">
+  <div class="video-header reveal">
+    <div class="section-label">Erklärvideo</div>
+    <h2 class="h2">Das Grentis Konzept in 60 Sekunden</h2>
+  </div>
+  <div class="video-wrap reveal" style="transition-delay:.1s">
+    <div class="video-player" style="background-image:url('thunbnail.png');background-size:cover;background-position:center;" onclick="this.querySelector('.play-btn').style.display='none'; this.insertAdjacentHTML('beforeend','<iframe style=\'position:absolute;inset:0;width:100%;height:100%;border:none;\' src=\'https://www.youtube.com/embed/QCyRti8-4Mc?autoplay=1\' allow=\'autoplay\'></iframe>')">
+      <div class="video-grid-overlay"></div>
+      <div class="video-glow"></div>
+      <div class="grain"></div>
+      <div class="video-corner tl"></div>
+      <div class="video-corner tr"></div>
+      <div class="video-corner bl"></div>
+      <div class="video-corner br"></div>
+      <div class="play-btn">
+        <div class="play-ring-outer">
+          <div class="play-inner">
+            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+        </div>
+        <span class="play-label">Video abspielen</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════ TRUST — ZAHLEN ════════════════════════ -->
+<section class="trust-section">
+  <div class="wrap">
+    <div class="trust-grid">
+
+      <!-- LEFT: stat + bullets + CTA -->
+      <div class="trust-left reveal">
+        <div class="section-label">Warum Grentis</div>
+        <div class="trust-big-pct">100<span class="pct-mark">%</span></div>
+        <div class="trust-pct-sub">unserer Kunden verzeichnen eine messbare Steigerung ihrer Liquidität</div>
+
+        <div class="trust-rule"></div>
+
+        <div class="trust-point reveal" style="transition-delay:.08s">
+          <div class="tp-head"><div class="tp-title">Expertennetzwerk</div></div>
+          <p class="tp-text">Bei der Umsetzung des Konzepts bündeln wir das Know-how unserer Kooperationspartner: Finanzmathematiker, Wirtschaftsprüfer, Steuerberater und Rechtsanwälte arbeiten Hand in Hand – für maximale Fachkompetenz auf jeder Ebene.</p>
+        </div>
+
+        <div class="trust-point reveal" style="transition-delay:.16s">
+          <div class="tp-head"><div class="tp-title">Garantierte Rechtssicherheit</div></div>
+          <p class="tp-text">Unsere Konzepte stützen sich auf die §§ 3, 8, 22, 40 sowie 4d des EStG und werden in der Konzernwelt seit über 150 Jahren erfolgreich angewandt. Vollständige Rechtssicherheit – untermauert durch die lückenlose Haftungsübernahme von uns und unseren Partnern.</p>
+        </div>
+
+        <div class="reveal" style="transition-delay:.24s;margin-top:32px;">
+          <a href="team.html" class="btn-primary">
+            Lerne Über uns
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- RIGHT: 3 metric cards -->
+      <div class="trust-cards reveal" style="transition-delay:.1s">
+        <div class="trust-metric-card">
+          <div class="tmc-label">Kapitalabfindungszahlungen</div>
+          <div class="tmc-value">3,6 Mrd. €</div>
+        </div>
+        <div class="trust-metric-card">
+          <div class="tmc-label">Mitarbeiter erfolgreich beraten</div>
+          <div class="tmc-value">&gt;68.000</div>
+        </div>
+        <div class="trust-metric-card">
+          <div class="tmc-label">Lohnkosten reduziert</div>
+          <div class="tmc-value">58 Mio. €</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════ KUNDEN ════════════════════════ -->
+<section class="kunden-section">
+  <div class="wrap">
+    <div class="kunden-card reveal">
+      <div class="kunden-card-bg"></div>
+      <div class="kunden-grid-bg"></div>
+      <div class="grain"></div>
+
+      <!-- Text -->
+      <div style="position:relative;z-index:2;">
+        <div class="section-label kunden-label">Referenzen</div>
+        <h2 class="kunden-h2">Das Vertrauen von<br>über <em>500 Unternehmen</em></h2>
+        <p class="kunden-desc">Erfolg entsteht durch starke Partnerschaften. Unsere Kooperationspartner und wir haben gemeinsam bereits <strong>mehr als 68.000 Mitarbeitende</strong> erfolgreich beraten und begleitet.<br><br>Ob Handwerksbetrieb oder Mittelstand: Das <strong>Grentis-Konzept</strong> kennt keine Branchengrenzen. Im engen Zusammenspiel analysieren unsere Kooperationspartner und wir Ihre Situation und implementieren genau das Modell, das perfekt zu Ihrem Unternehmen passt.</p>
+        <a href="referenzen.html" class="kunden-cta">
+          Zu unseren Referenzen
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <!-- Logo grid with real images -->
+      <div style="position:relative;z-index:2;">
+        <div class="logo-grid-4">
+          <div class="logo-grid-cell">
+            <img src="Mcdonalds.png" alt="McDonald's">
+          </div>
+          <div class="logo-grid-cell">
+            <img src="Rewe.png" alt="REWE">
+          </div>
+          <div class="logo-grid-cell">
+            <img src="Edeka.png" alt="EDEKA">
+          </div>
+          <div class="logo-grid-cell">
+            <img src="Apollo.png" alt="Apollo Optik">
+          </div>
+        </div>
+        <div class="logo-more">+ über 496 weitere Unternehmen</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════ CTA ════════════════════════ -->
+<section class="cta-outer">
+  <div class="wrap">
+    <div class="cta-card reveal">
+      <div class="cta-topo"></div>
+      <div class="cta-bottom-circle"></div>
+      <div class="grain"></div>
+
+      <div class="cta-left" style="position:relative;z-index:1;">
+        <div class="cta-eyebrow">Jetzt starten</div>
+        <h2 class="cta-h2">Bereit für Ihre eigene Unternehmensbank?</h2>
+        <p class="cta-p">Schließen Sie sich über 500 Unternehmen in Deutschland an, die das Grentis-Konzept erfolgreich nutzen: Für maximale Fachkräftebindung, sichere Liquidität und spürbare Renditesteigerungen.</p>
+      </div>
+
+      <div class="cta-btns">
+        <a href="kontakt.html#kalender" class="btn-cta-white">
+          Berater kontaktieren
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="pduk.html" class="btn-cta-ghost">
+          Mehr erfahren
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-top">
+    <div>
+      <div class="foot-logo"><img src="Brand_assets/Logo.png" alt="Grentis" class="foot-logo-img"></div>
+      <div class="foot-social" style="margin-top:20px;">
+        <a href="https://www.linkedin.com/company/grentis-gmbh/" target="_blank" title="LinkedIn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        <a href="https://www.instagram.com/grentis_/" target="_blank" title="Instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12s.014 3.668.072 4.948c.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24s3.668-.014 4.948-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        <a href="https://www.youtube.com/@Grentis_gmbh/shorts?app=desktop" target="_blank" title="YouTube" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+        <a href="https://www.tiktok.com/@grentis_gmbh" target="_blank" title="TikTok" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg></a>
+      </div>
+    </div>
+    <div>
+      <div class="foot-col-h">Leistungen</div>
+      <ul class="foot-links">
+        <li><a href="steuerkanzleien.html">Für Steuerberatungskanzleien</a></li>
+        <li><a href="unternehmen.html">Für Unternehmen</a></li>
+        <li><a href="pduk.html">pdUK</a></li>
+        <li><a href="potenzialrechner.html">Potenzialrechner</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="foot-col-h">Über Grentis</div>
+      <ul class="foot-links">
+        <li><a href="team.html">Unser Team</a></li>
+        <li><a href="karriere.html">Stellenangebote</a></li>
+        <li><a href="referenzen.html">Referenzen</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="foot-col-h">Kontakt</div>
+      <div class="foot-contact-row">
+        <div class="foot-contact-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div class="foot-contact-text"><a href="mailto:info@grentis.de">info@grentis.de</a></div>
+      </div>
+      <div class="foot-contact-row">
+        <div class="foot-contact-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 12a19.79 19.79 0 01-3.07-8.63A2 2 0 013.6 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.85a16 16 0 006.29 6.29l.95-.95a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+        <div class="foot-contact-text"><a href="tel:+4940537981963">+49 40 537981963</a></div>
+      </div>
+      <div class="foot-contact-row">
+        <div class="foot-contact-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div class="foot-contact-text">Schenkendorfstraße 3<br>22085 Hamburg</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span class="foot-copy">© 2026 Grentis GmbH. Alle Rechte vorbehalten.</span>
+    <div class="foot-legal">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutzerklärung</a>
+      </div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40));
+const ro = new IntersectionObserver(e => e.forEach(x => {
+  if (x.isIntersecting) { x.target.classList.add('on'); ro.unobserve(x.target); }
+}), { threshold: .1 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+/* ── Animated rotating hero word ── */
+(function() {
+  const words = document.querySelectorAll('.anim-word');
+  if (!words.length) return;
+  let cur = 0;
+  words[0].classList.add('active');
+
+  setInterval(() => {
+    const prev = words[cur];
+    cur = (cur + 1) % words.length;
+    const next = words[cur];
+
+    prev.classList.remove('active');
+    prev.classList.add('exit');
+    setTimeout(() => prev.classList.remove('exit'), 380);
+    next.classList.add('active');
+  }, 2400);
+})();
+
+
+/* mobile nav close */
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.body.classList.remove('nav-open')));
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+# Dev tools
+node_modules/
+package.json
+package-lock.json
+serve.mjs
+screenshot.mjs
+CLAUDE.md
+.claude/
+
+# Temp files
+temporary screenshots/
+Screenshots/
+.DS_Store
+
+# Unused reference images
+Arbeitnehemr.png
+Bildschirmfoto 2026-02-25 um 18.08.16.png
+Create_a_premium_minimalist_co_Nano_Banana_2_27335.jpg
+Eine_sanfte_Animation_zeigt_di_Kling_26_Pro_81109.mp4
+Gehalt.png
+Geld an versicherunge.png
+Icons.png
+Interne bank .png
+Keine Versicherung...png
+Keine Versicherung.png
+Section Warum .png
+envato-labs-image-edit (6).png
+envato-labs-image-edit (7).png
+image copy 2.png
+image copy 3.png
+image copy 4.png
+image copy 5.png
+image copy.png
+image.png
+thunbnail.png
+Brand_assets/Grentis Brand Identity.pdf
+Brand_assets/Referenzen/
