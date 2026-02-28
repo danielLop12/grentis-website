@@ -625,7 +625,11 @@ body.nav-open .nav-overlay { display:block; opacity:1; }
   .card-icon { width:42px; height:42px; border-radius:10px; font-size:1.1rem; margin-bottom:14px; }
 
   /* Footer — compact */
-  .foot-top { grid-template-columns:1fr; gap:24px; }
+  .foot-top { grid-template-columns:1fr 1fr; gap:28px 20px; }
+  .foot-top > div:nth-child(1) { order:1; } /* Logo+Social — top left */
+  .foot-top > div:nth-child(4) { order:2; } /* Kontakt — top right */
+  .foot-top > div:nth-child(2) { order:3; } /* Leistungen — bottom left */
+  .foot-top > div:nth-child(3) { order:4; } /* Über Grentis — bottom right */
   footer { padding:36px 18px 24px; }
   .foot-bottom { flex-direction:column; align-items:flex-start; gap:6px; }
   .foot-logo img, .foot-logo-img { height:36px; }
@@ -633,10 +637,14 @@ body.nav-open .nav-overlay { display:block; opacity:1; }
   .foot-links a { font-size:.8rem; }
   .foot-links { gap:8px; }
   .foot-contact-text { font-size:.78rem; }
+  .foot-contact-icon { width:28px; height:28px; border-radius:7px; }
+  .foot-contact-icon svg { width:11px; height:11px; }
+  .foot-contact-row { gap:8px; margin-bottom:10px; }
   .foot-copy { font-size:.7rem; }
   .foot-legal a { font-size:.7rem; }
   .foot-social a { width:32px; height:32px; border-radius:7px; }
   .foot-social svg { width:12px; height:12px; }
+  .foot-desc { display:none; }
 
   /* CTA band — compact */
   .cta-band { padding:28px 22px; border-radius:16px; gap:20px; }
