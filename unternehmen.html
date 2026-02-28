@@ -78,6 +78,7 @@
     .konzept-list li { display:flex; gap:12px; align-items:flex-start; font-size:.9rem; color:var(--mu); line-height:1.6; }
     .konzept-list li::before { content:''; width:20px; height:20px; border-radius:50%; background:var(--or-dim); border:1px solid var(--or-mid); display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; background-image:url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.5 5l2.5 2.5 5-5' stroke='%23fd4000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:center; }
     /* ---- Vorteile ---- */
+    .vorteil-dots { display:none; }
     .vorteil-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:52px; }
     .vorteil-card { background:var(--s1); border:1px solid var(--bd); border-radius:20px; padding:32px 28px; position:relative; overflow:hidden; transition:border-color .3s, transform .3s cubic-bezier(.34,1.56,.64,1); }
     .vorteil-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--or); transform:scaleX(0); transform-origin:left; transition:transform .35s; }
@@ -154,7 +155,7 @@
       .konzept-layout { gap:24px; padding:24px 0 12px; }
       .konzept-left { padding-left:0; }
       .konzept-left .h2 { font-size:clamp(1.3rem,4.5vw,1.8rem); margin-bottom:16px; }
-      .konzept-img-wrap { max-width:100%; aspect-ratio:4/3; border-radius:16px; }
+      .konzept-img-wrap { display:none; }
       .konzept-grid { grid-template-columns:1fr !important; gap:32px; }
       .konzept-list li { font-size:.82rem; gap:10px; }
       .konzept-list li::before { width:16px; height:16px; }
@@ -162,20 +163,31 @@
       .konzept-callout-label { font-size:.65rem; margin-bottom:8px; }
       .konzept-callout p { font-size:.82rem; }
       .law-pill { font-size:.68rem; padding:4px 10px; }
-      .vorteil-grid { margin-top:28px; gap:12px; }
-      .vorteil-card { padding:22px 18px; border-radius:14px; }
-      .vorteil-icon { width:30px; height:30px; border-radius:8px; margin-bottom:12px; }
-      .vorteil-icon svg { width:14px; height:14px; }
-      .vorteil-title { font-size:.88rem; margin-bottom:8px; }
+      .vorteil-section { overflow-x:hidden !important; }
+      .vorteil-grid {
+        display:flex !important; flex-direction:row !important;
+        grid-template-columns:none !important; gap:12px;
+        overflow-x:auto; scroll-snap-type:x mandatory;
+        -webkit-overflow-scrolling:touch; scrollbar-width:none;
+        margin:28px -18px 0; padding-left:18px; padding-right:40px;
+        width:calc(100% + 36px);
+      }
+      .vorteil-grid::-webkit-scrollbar { display:none; }
+      .vorteil-grid .vorteil-card { opacity:1 !important; transform:none !important; }
+      .vorteil-card {
+        width:82vw; min-width:82vw; flex-shrink:0; scroll-snap-align:start;
+        padding:22px 18px; border-radius:16px;
+        background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07);
+        border-left:3px solid var(--or);
+      }
+      .vorteil-icon { width:28px; height:28px; border-radius:7px; margin-bottom:10px; }
+      .vorteil-icon svg { width:13px; height:13px; }
+      .vorteil-title { font-size:.92rem; margin-bottom:8px; line-height:1.2; }
       .vorteil-desc { font-size:.78rem; line-height:1.55; }
-      .mitarbeiter-band { padding:28px 20px; margin-top:40px; border-radius:16px; }
-      .mitarbeiter-band-header { margin-bottom:20px; }
-      .mitarbeiter-band-kicker { font-size:.65rem; margin-bottom:10px; }
-      .benefit-list { grid-template-columns:1fr !important; gap:10px; }
-      .benefit-item { padding:16px 14px; border-radius:10px; gap:10px; }
-      .benefit-emoji { font-size:1.1rem; }
-      .benefit-item-body b { font-size:.84rem; margin-bottom:2px; }
-      .benefit-item-body span { font-size:.76rem; }
+      .vorteil-dots { display:flex !important; justify-content:center; gap:6px; margin-top:14px; }
+      .vorteil-dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.15); transition:background .3s, width .3s; }
+      .vorteil-dot.active { width:20px; border-radius:3px; background:var(--or); }
+      .mitarbeiter-band { display:none !important; }
       .pduk-teaser { grid-template-columns:1fr !important; gap:20px; padding:28px 20px; border-radius:16px; }
       .pduk-teaser-title { font-size:clamp(1.1rem,3.5vw,1.5rem); margin-bottom:10px; }
       .pduk-teaser-desc { font-size:.82rem; }
@@ -189,7 +201,6 @@
     }
     @media (max-width:480px) {
       .hero-h1 { font-size:clamp(2rem,9vw,2.8rem); }
-      .mitarbeiter-band { padding:22px 16px; }
       .pduk-teaser { padding:22px 16px; }
     }
   </style>
@@ -333,7 +344,7 @@
 </section>
 
 <!-- VORTEILE FÜR UNTERNEHMEN -->
-<section style="padding:0 60px 80px;">
+<section class="vorteil-section" style="padding:0 60px 80px;">
   <div class="reveal" style="text-align:center;max-width:640px;margin:0 auto 0;">
     <div class="section-label" style="justify-content:center;">Vorteile</div>
     <h2 class="h2">Strategische Vorteile für<br>Ihr Unternehmen</h2>
@@ -359,6 +370,12 @@
       <div class="vorteil-title">Wahre Bankenunabhängigkeit</div>
       <p class="vorteil-desc">Befreien Sie sich von externen Kreditgebern. Durch die Umsetzung des Grentis-Konzepts steigern Sie Ihre eigene Innenfinanzierungskraft drastisch. So können Sie zukünftige Investitionen völlig bankenunabhängig und aus eigener Kraft vorantreiben.</p>
     </div>
+  </div>
+  <div class="vorteil-dots">
+    <span class="vorteil-dot active"></span>
+    <span class="vorteil-dot"></span>
+    <span class="vorteil-dot"></span>
+    <span class="vorteil-dot"></span>
   </div>
 
   <!-- MITARBEITER VORTEILE -->
@@ -651,6 +668,18 @@ document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click
   document.body.classList.remove('nav-open');
   document.querySelectorAll('.has-drop.open').forEach(el => el.classList.remove('open'));
 }));
+
+/* ── Swipe dots for vorteil cards ── */
+(function() {
+  const grid = document.querySelector('.vorteil-grid');
+  const dots = document.querySelectorAll('.vorteil-dot');
+  if (!grid || !dots.length) return;
+  grid.addEventListener('scroll', function() {
+    const cardWidth = grid.firstElementChild.offsetWidth + 12;
+    const idx = Math.round(grid.scrollLeft / cardWidth);
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  }, { passive: true });
+})();
 </script>
 </body>
 </html>
