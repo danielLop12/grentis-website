@@ -483,61 +483,101 @@ body.nav-open .nav-overlay { display:block; opacity:1; }
 @media (max-width:1024px) {
   :root { --nav-h:64px; }
 
-  /* Nav */
+  /* ── Mobile Nav ─────────────────────────────────────── */
   #nav { padding:0 20px; }
   .nav-toggle { display:flex; }
+
+  /* Panel — glass with rounded left corners */
   .nav-links {
     position:fixed; top:0; right:0; z-index:600;
     width:280px; height:100dvh; max-width:80vw;
-    background:rgba(10,10,10,.98); backdrop-filter:blur(32px);
+    background:rgba(10,10,10,.97); backdrop-filter:blur(36px); -webkit-backdrop-filter:blur(36px);
     border-left:1px solid rgba(255,255,255,.06);
+    border-radius:24px 0 0 24px;
     flex-direction:column; align-items:stretch; justify-content:flex-start;
-    padding:calc(var(--nav-h) + 12px) 0 24px; gap:0;
-    transform:translateX(100%); transition:transform .32s cubic-bezier(.22,1,.36,1);
+    padding:calc(var(--nav-h) + 16px) 12px 24px; gap:2px;
+    transform:translateX(100%); transition:transform .38s cubic-bezier(.32,1.15,.60,1);
     overflow-y:auto; -webkit-overflow-scrolling:touch;
   }
   body.nav-open .nav-links { transform:translateX(0); }
 
-  /* Main nav items */
-  .nav-links > li > a {
-    padding:13px 24px; font-size:.88rem; font-weight:600; border-radius:0;
-    color:rgba(255,255,255,.65); justify-content:space-between;
-    border-bottom:1px solid rgba(255,255,255,.04);
+  /* Stagger items in on open, fast out on close */
+  .nav-links > li {
+    opacity:0; transform:translateX(28px);
+    transition:opacity .15s, transform .15s;
   }
-  .nav-links > li > a:hover { color:#fff; background:rgba(255,255,255,.03); }
-  .nav-links > li > a.active { color:var(--or); }
-  .nav-links > li > a.parent-active { color:rgba(255,255,255,.65); }
+  body.nav-open .nav-links > li {
+    opacity:1; transform:translateX(0);
+    transition:opacity .4s cubic-bezier(.22,1,.36,1), transform .4s cubic-bezier(.22,1,.36,1);
+  }
+  body.nav-open .nav-links > li:nth-child(1) { transition-delay:.03s; }
+  body.nav-open .nav-links > li:nth-child(2) { transition-delay:.07s; }
+  body.nav-open .nav-links > li:nth-child(3) { transition-delay:.11s; }
+  body.nav-open .nav-links > li:nth-child(4) { transition-delay:.15s; }
+  body.nav-open .nav-links > li:nth-child(5) { transition-delay:.19s; }
+  body.nav-open .nav-links > li:nth-child(6) { transition-delay:.23s; }
+
+  /* Main nav items — rounded hover */
+  .nav-links > li > a {
+    padding:12px 16px; font-size:.88rem; font-weight:600; border-radius:12px;
+    color:rgba(255,255,255,.6); justify-content:space-between;
+    transition:color .2s, background .2s;
+  }
+  .nav-links > li > a:hover { color:#fff; background:rgba(255,255,255,.05); }
+  .nav-links > li > a.active { color:var(--or); background:rgba(253,64,0,.06); }
+  .nav-links > li > a.parent-active { color:rgba(255,255,255,.6); }
+  .has-drop.open > a { color:#fff !important; background:rgba(255,255,255,.05); }
 
   /* Hide desktop CTA, show mobile CTA */
   .btn-nav { display:none; }
-  .nav-mobile-cta { display:block !important; list-style:none; padding:12px 20px 0; border-top:1px solid rgba(255,255,255,.06); margin-top:8px; }
-  .nav-mobile-cta a { margin:0 !important; border-radius:10px !important; font-size:.84rem !important; padding:13px 20px !important; }
+  .nav-mobile-cta { display:block !important; list-style:none; padding:8px 4px 0; margin-top:auto; }
+  .nav-mobile-cta a { margin:0 !important; border-radius:14px !important; font-size:.84rem !important; padding:14px 20px !important; }
 
-  /* Chevron — visible on mobile, rotates on open */
-  .has-drop .chev { display:block; width:14px; height:14px; transition:transform .3s cubic-bezier(.22,1,.36,1); opacity:.4; }
+  /* Chevron — visible, rotates on open */
+  .has-drop .chev {
+    display:block; width:14px; height:14px; opacity:.35;
+    transition:transform .35s cubic-bezier(.34,1.56,.64,1), opacity .25s;
+  }
   .has-drop.open .chev { transform:rotate(180deg); opacity:.7; }
 
-  /* Dropdown — accordion, hidden by default */
+  /* ── BUG FIX: Override desktop hover transform on touch devices ── */
+  .has-drop:hover .drop {
+    transform:none !important;
+    position:static !important;
+  }
+
+  /* Dropdown — accordion with rounded container */
   .has-drop .drop {
-    position:static; transform:none;
-    min-width:0; background:rgba(255,255,255,.02); border:none; backdrop-filter:none;
-    border-radius:0; padding:0; margin:0;
+    position:static !important; transform:none !important;
+    min-width:0; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.04); backdrop-filter:none;
+    border-radius:14px; padding:0; margin:4px 4px 4px 8px;
     opacity:1; visibility:visible; pointer-events:all;
     max-height:0; overflow:hidden;
-    transition:max-height .35s cubic-bezier(.22,1,.36,1);
+    transition:max-height .4s cubic-bezier(.22,1,.36,1), border-color .3s;
   }
   .has-drop .drop::before { display:none; }
-  .has-drop.open .drop { max-height:400px; }
+  .has-drop.open .drop { max-height:400px; padding:6px 0; border-color:rgba(255,255,255,.06); }
 
-  /* Dropdown items — clean, minimal, no icons */
+  /* Dropdown items — fade+slide in with stagger */
   .drop a {
-    padding:10px 24px 10px 36px; font-size:.82rem; font-weight:500;
-    color:rgba(255,255,255,.45); border-radius:0;
-    border-left:2px solid transparent; margin:0;
-    transition:color .2s, border-color .2s;
+    padding:10px 16px 10px 20px; font-size:.82rem; font-weight:500;
+    color:rgba(255,255,255,.42); border-radius:10px; margin:0 6px;
+    border-left:none; display:flex; gap:10px;
+    transition:color .2s, background .2s;
+    opacity:0; transform:translateX(14px);
   }
-  .drop a:hover { color:rgba(255,255,255,.8); background:transparent; border-left-color:rgba(255,255,255,.12); }
-  .drop a.active { color:var(--or); border-left-color:var(--or); }
+  .has-drop.open .drop a {
+    opacity:1; transform:translateX(0);
+    transition:color .2s, background .2s, opacity .35s cubic-bezier(.22,1,.36,1), transform .35s cubic-bezier(.22,1,.36,1);
+  }
+  .has-drop.open .drop a:nth-child(1) { transition-delay:.08s; }
+  .has-drop.open .drop a:nth-child(2) { transition-delay:.13s; }
+  .has-drop.open .drop a:nth-child(3) { transition-delay:.18s; }
+  .has-drop.open .drop a:nth-child(4) { transition-delay:.23s; }
+  .drop a:hover { color:rgba(255,255,255,.85); background:rgba(255,255,255,.05); }
+  .drop a.active { color:var(--or); background:rgba(253,64,0,.07); }
+
+  /* Hide icon boxes and dividers on mobile */
   .drop-icon { display:none; }
   .drop-divider { display:none; }
 
