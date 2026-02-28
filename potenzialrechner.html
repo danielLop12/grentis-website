@@ -440,7 +440,22 @@ function upd(){
 upd();
 
 /* mobile nav close */
-document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.body.classList.remove('nav-open')));
+/* Mobile nav accordion */
+document.querySelectorAll('.has-drop > a').forEach(a => {
+  a.addEventListener('click', function(e) {
+    if (window.innerWidth <= 1024) {
+      e.preventDefault();
+      const li = this.parentElement;
+      document.querySelectorAll('.has-drop.open').forEach(el => { if (el !== li) el.classList.remove('open'); });
+      li.classList.toggle('open');
+    }
+  });
+});
+document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', function() {
+  if (window.innerWidth <= 1024 && this.parentElement.classList.contains('has-drop')) return;
+  document.body.classList.remove('nav-open');
+  document.querySelectorAll('.has-drop.open').forEach(el => el.classList.remove('open'));
+}));
 </script>
 </body>
 </html>

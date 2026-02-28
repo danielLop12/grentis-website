@@ -408,7 +408,22 @@ function toggleFaq(q){
 (function(){const words=document.querySelectorAll('.anim-word');if(!words.length)return;let cur=0;words[0].classList.add('active');setInterval(()=>{const prev=words[cur];cur=(cur+1)%words.length;const next=words[cur];prev.classList.remove('active');prev.classList.add('exit');setTimeout(()=>prev.classList.remove('exit'),380);next.classList.add('active');},2400);})();
 
 /* mobile nav close */
-document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.body.classList.remove('nav-open')));
+/* Mobile nav accordion */
+document.querySelectorAll('.has-drop > a').forEach(a => {
+  a.addEventListener('click', function(e) {
+    if (window.innerWidth <= 1024) {
+      e.preventDefault();
+      const li = this.parentElement;
+      document.querySelectorAll('.has-drop.open').forEach(el => { if (el !== li) el.classList.remove('open'); });
+      li.classList.toggle('open');
+    }
+  });
+});
+document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', function() {
+  if (window.innerWidth <= 1024 && this.parentElement.classList.contains('has-drop')) return;
+  document.body.classList.remove('nav-open');
+  document.querySelectorAll('.has-drop.open').forEach(el => el.classList.remove('open'));
+}));
 </script>
 </body>
 </html>
