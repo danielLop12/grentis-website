@@ -578,16 +578,23 @@
   .hero-logos-section { margin-top:0; }
   .hero-logos-chips { gap:7px; }
 
-  /* ── Trust section: swipeable metric cards ── */
+  /* ── Trust section: cards BEFORE text via display:contents ── */
   .trust-big-pct { display:none; }
   .trust-pct-sub { display:none; }
   .trust-rule { display:none; }
-  .trust-grid { grid-template-columns:1fr; gap:24px; }
+  .trust-grid { display:flex; flex-direction:column; gap:0; }
+  .trust-left { display:contents; }
+  .trust-left .section-label { order:1; margin-bottom:16px; }
+  .trust-cards { order:2; }
+  .swipe-dots { order:3; }
+  .trust-point { order:4; }
+  .trust-left > div:last-child { order:5; } /* CTA wrapper */
+  /* Swipeable cards row */
   .trust-cards {
     flex-direction:row !important; gap:12px;
     overflow-x:auto; scroll-snap-type:x mandatory;
     -webkit-overflow-scrolling:touch; scrollbar-width:none;
-    padding-bottom:4px; margin:0 -18px; padding-left:18px; padding-right:40px;
+    padding-bottom:4px; margin:0 -18px 0; padding-left:18px; padding-right:40px;
   }
   .trust-cards::-webkit-scrollbar { display:none; }
   .trust-metric-card {
@@ -600,7 +607,7 @@
   .tmc-value { font-size:clamp(1.8rem,7vw,2.4rem); }
   .swipe-dots {
     display:flex !important; justify-content:center; gap:6px;
-    margin-top:14px;
+    margin-top:14px; margin-bottom:24px;
   }
   .swipe-dot {
     width:6px; height:6px; border-radius:50%;
@@ -608,8 +615,9 @@
   }
   .swipe-dot.active { width:20px; border-radius:3px; background:var(--or); }
 
-  /* ── Kunden section: remove desc, full width ── */
-  .kunden-desc { display:none; }
+  /* ── Kunden section: hide first paragraph, full width ── */
+  .kunden-desc-1 { display:none; }
+  .kunden-desc-2 { max-width:100%; }
   .kunden-section { padding:0 18px 48px; }
   .kunden-card { grid-template-columns:1fr; gap:24px; padding:28px 22px; border-radius:18px; }
   .kunden-h2 { font-size:clamp(1.3rem,5vw,1.8rem); margin-bottom:14px; }
@@ -822,7 +830,8 @@
       <div style="position:relative;z-index:2;">
         <div class="section-label kunden-label">Referenzen</div>
         <h2 class="kunden-h2">Das Vertrauen von<br>über <em>500 Unternehmen</em></h2>
-        <p class="kunden-desc">Erfolg entsteht durch starke Partnerschaften. Unsere Kooperationspartner und wir haben gemeinsam bereits <strong>mehr als 68.000 Mitarbeitende</strong> erfolgreich beraten und begleitet.<br><br>Ob Handwerksbetrieb oder Mittelstand: Das <strong>Grentis-Konzept</strong> kennt keine Branchengrenzen. Im engen Zusammenspiel analysieren unsere Kooperationspartner und wir Ihre Situation und implementieren genau das Modell, das perfekt zu Ihrem Unternehmen passt.</p>
+        <p class="kunden-desc kunden-desc-1">Erfolg entsteht durch starke Partnerschaften. Unsere Kooperationspartner und wir haben gemeinsam bereits <strong>mehr als 68.000 Mitarbeitende</strong> erfolgreich beraten und begleitet.</p>
+        <p class="kunden-desc kunden-desc-2">Ob Handwerksbetrieb oder Mittelstand: Das <strong>Grentis-Konzept</strong> kennt keine Branchengrenzen. Im engen Zusammenspiel analysieren unsere Kooperationspartner und wir Ihre Situation und implementieren genau das Modell, das perfekt zu Ihrem Unternehmen passt.</p>
         <a href="referenzen.html" class="kunden-cta">
           Zu unseren Referenzen
           <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
