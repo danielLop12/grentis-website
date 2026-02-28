@@ -558,8 +558,9 @@
 /* ═══════════════════════════════════════════
    MOBILE OVERRIDES
    ═══════════════════════════════════════════ */
-/* Desktop: hide short labels */
+/* Desktop: hide short labels & swipe dots */
 .btn-short { display:none; }
+.swipe-dots { display:none; }
 
 @media (max-width:768px) {
   .hero { min-height:auto; padding:calc(var(--nav-h) + 28px) 18px 36px; }
@@ -576,6 +577,45 @@
   .hero-cta-row { margin-bottom:28px; gap:10px; }
   .hero-logos-section { margin-top:0; }
   .hero-logos-chips { gap:7px; }
+
+  /* ── Trust section: swipeable metric cards ── */
+  .trust-big-pct { display:none; }
+  .trust-pct-sub { display:none; }
+  .trust-rule { display:none; }
+  .trust-grid { grid-template-columns:1fr; gap:24px; }
+  .trust-cards {
+    flex-direction:row !important; gap:12px;
+    overflow-x:auto; scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch; scrollbar-width:none;
+    padding-bottom:4px; margin:0 -18px; padding-left:18px; padding-right:40px;
+  }
+  .trust-cards::-webkit-scrollbar { display:none; }
+  .trust-metric-card {
+    min-width:calc(100vw - 72px); flex-shrink:0; scroll-snap-align:start;
+    padding:24px 22px 20px; border-radius:16px;
+    background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07);
+    border-left:3px solid var(--or);
+  }
+  .tmc-label { font-size:.65rem; margin-bottom:8px; }
+  .tmc-value { font-size:clamp(1.8rem,7vw,2.4rem); }
+  .swipe-dots {
+    display:flex !important; justify-content:center; gap:6px;
+    margin-top:14px;
+  }
+  .swipe-dot {
+    width:6px; height:6px; border-radius:50%;
+    background:rgba(255,255,255,.15); transition:background .3s, width .3s;
+  }
+  .swipe-dot.active { width:20px; border-radius:3px; background:var(--or); }
+
+  /* ── Kunden section: remove desc, full width ── */
+  .kunden-desc { display:none; }
+  .kunden-section { padding:0 18px 48px; }
+  .kunden-card { grid-template-columns:1fr; gap:24px; padding:28px 22px; border-radius:18px; }
+  .kunden-h2 { font-size:clamp(1.3rem,5vw,1.8rem); margin-bottom:14px; }
+  .kunden-label { margin-bottom:10px; }
+  .kunden-cta { font-size:.82rem; }
+
   .video-section { padding:40px 18px !important; }
   .video-header { margin-bottom:28px; }
   .video-wrap { max-width:100%; }
@@ -742,7 +782,7 @@
         </div>
       </div>
 
-      <!-- RIGHT: 3 metric cards -->
+      <!-- RIGHT: 3 metric cards (swipeable on mobile) -->
       <div class="trust-cards reveal" style="transition-delay:.1s">
         <div class="trust-metric-card">
           <div class="tmc-label">Kapitalabfindungszahlungen</div>
@@ -756,6 +796,12 @@
           <div class="tmc-label">Lohnkosten reduziert</div>
           <div class="tmc-value">58 Mio. €</div>
         </div>
+      </div>
+      <!-- Swipe dots (mobile only) -->
+      <div class="swipe-dots">
+        <span class="swipe-dot active"></span>
+        <span class="swipe-dot"></span>
+        <span class="swipe-dot"></span>
       </div>
 
     </div>
@@ -935,6 +981,18 @@ document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click
   document.body.classList.remove('nav-open');
   document.querySelectorAll('.has-drop.open').forEach(el => el.classList.remove('open'));
 }));
+
+/* ── Swipe dots for trust metric cards ── */
+(function() {
+  const cards = document.querySelector('.trust-cards');
+  const dots = document.querySelectorAll('.swipe-dot');
+  if (!cards || !dots.length) return;
+  cards.addEventListener('scroll', function() {
+    const cardWidth = cards.firstElementChild.offsetWidth + 12;
+    const idx = Math.round(cards.scrollLeft / cardWidth);
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  }, { passive: true });
+})();
 </script>
 </body>
 </html>
