@@ -143,6 +143,55 @@
     .tl-step.tl-active .tl-card { border-color:rgba(253,64,0,.22); }
     .tl-card h3 { font-size:1.1rem; font-weight:800; margin-bottom:10px; letter-spacing:-.02em; }
     .tl-card p { font-size:.87rem; color:var(--mu); line-height:1.65; }
+
+    /* ── Mobile overrides ─────────────────── */
+    @media (max-width:768px) {
+      .hero { min-height:auto; }
+      .hero-h1 { font-size:clamp(1.7rem,6.5vw,2.8rem); }
+      .hero-anim-wrap { height:1.2em; }
+      .hero-sub { font-size:.82rem; margin:14px auto 24px; }
+      .hero-cta-row { gap:10px; }
+      .konzept-layout { gap:24px; padding:24px 0 12px; }
+      .konzept-left { padding-left:0; }
+      .konzept-left .h2 { font-size:clamp(1.3rem,4.5vw,1.8rem); margin-bottom:16px; }
+      .konzept-img-wrap { max-width:100%; aspect-ratio:4/3; border-radius:16px; }
+      .konzept-grid { grid-template-columns:1fr !important; gap:32px; }
+      .konzept-list li { font-size:.82rem; gap:10px; }
+      .konzept-list li::before { width:16px; height:16px; }
+      .konzept-callout { padding:20px 18px; margin-top:20px; border-radius:12px; }
+      .konzept-callout-label { font-size:.65rem; margin-bottom:8px; }
+      .konzept-callout p { font-size:.82rem; }
+      .law-pill { font-size:.68rem; padding:4px 10px; }
+      .vorteil-grid { margin-top:28px; gap:12px; }
+      .vorteil-card { padding:22px 18px; border-radius:14px; }
+      .vorteil-icon { width:30px; height:30px; border-radius:8px; margin-bottom:12px; }
+      .vorteil-icon svg { width:14px; height:14px; }
+      .vorteil-title { font-size:.88rem; margin-bottom:8px; }
+      .vorteil-desc { font-size:.78rem; line-height:1.55; }
+      .mitarbeiter-band { padding:28px 20px; margin-top:40px; border-radius:16px; }
+      .mitarbeiter-band-header { margin-bottom:20px; }
+      .mitarbeiter-band-kicker { font-size:.65rem; margin-bottom:10px; }
+      .benefit-list { grid-template-columns:1fr !important; gap:10px; }
+      .benefit-item { padding:16px 14px; border-radius:10px; gap:10px; }
+      .benefit-emoji { font-size:1.1rem; }
+      .benefit-item-body b { font-size:.84rem; margin-bottom:2px; }
+      .benefit-item-body span { font-size:.76rem; }
+      .pduk-teaser { grid-template-columns:1fr !important; gap:20px; padding:28px 20px; border-radius:16px; }
+      .pduk-teaser-title { font-size:clamp(1.1rem,3.5vw,1.5rem); margin-bottom:10px; }
+      .pduk-teaser-desc { font-size:.82rem; }
+      .dc-wrap { display:none; }
+      .tl-step { padding-top:36px; }
+      .tl-dot { width:36px; height:36px; }
+      .tl-dot-inner { width:10px; height:10px; }
+      .tl-card { padding:20px 18px; border-radius:12px; }
+      .tl-card h3 { font-size:.9rem; margin-bottom:8px; }
+      .tl-card p { font-size:.78rem; line-height:1.55; }
+    }
+    @media (max-width:480px) {
+      .hero-h1 { font-size:clamp(1.5rem,6vw,2.2rem); }
+      .mitarbeiter-band { padding:22px 16px; }
+      .pduk-teaser { padding:22px 16px; }
+    }
   </style>
 </head>
 <body>

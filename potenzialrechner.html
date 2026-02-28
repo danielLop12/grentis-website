@@ -90,6 +90,56 @@ input[type=range]:disabled { opacity:.45; cursor:default; }
 .info-strip-icon svg { width:20px; height:20px; stroke:var(--or); stroke-width:1.8; fill:none; }
 .info-strip-title { font-size:.9rem; font-weight:700; margin-bottom:6px; }
 .info-strip-text { font-size:.81rem; color:var(--mu); line-height:1.65; }
+
+/* ── Mobile ≤768px ──────────────────── */
+@media(max-width:768px){
+  .calc-section { padding:100px 18px 20px !important; }
+  .calc-top { grid-template-columns:1fr; gap:14px; }
+  .input-panel { padding:22px 18px; border-radius:14px; }
+  .panel-title { font-size:.88rem; }
+  .panel-sub { font-size:.73rem; margin-bottom:14px; }
+  .sg-label { font-size:.74rem; }
+  .sg-val { font-size:.8rem; padding:3px 9px; min-width:60px; }
+  .sg-input { font-size:.8rem; width:68px; padding:3px 6px; }
+  .sg-mark { font-size:.62rem; }
+  .calc-bottom { grid-template-columns:1fr 1fr; gap:8px; }
+  .kpi-card { padding:14px 14px; border-radius:10px; }
+  .kpi-label { font-size:.62rem; margin-bottom:5px; }
+  .kpi-val { font-size:1.1rem; }
+  .kpi-total { padding:14px 16px; border-radius:10px; }
+  .kpi-total .kpi-label { font-size:.65rem; }
+  .kpi-total .kpi-val { font-size:1.15rem; }
+  .chart-card { padding:16px 14px; border-radius:14px; }
+  .chart-title { font-size:.82rem; }
+  .chart-subtitle { font-size:.72rem; margin-bottom:14px; }
+  .chart-legend { gap:12px; margin-bottom:10px; }
+  .chart-legend-item { font-size:.68rem; }
+  .chart-wrap { height:200px; }
+  .table-card { padding:16px 12px; border-radius:14px; }
+  .table-title { font-size:.8rem; margin-bottom:10px; }
+  .data-table { font-size:.7rem; }
+  .data-table th { font-size:.62rem; padding:7px 8px; }
+  .data-table td { padding:6px 8px; }
+  .disclaimer { font-size:.65rem; margin-top:10px; }
+  .info-strip { padding:0 18px 48px; }
+  .info-strip-inner { grid-template-columns:1fr; gap:12px; }
+  .info-strip-card { padding:20px 18px; border-radius:14px; gap:12px; }
+  .info-strip-icon { width:38px; height:38px; border-radius:10px; }
+  .info-strip-icon svg { width:17px; height:17px; }
+  .info-strip-title { font-size:.82rem; margin-bottom:4px; }
+  .info-strip-text { font-size:.74rem; }
+  .calc-cta-btn { padding:14px 20px; font-size:.88rem; border-radius:10px; margin-top:12px; }
+}
+@media(max-width:480px){
+  .calc-section { padding:90px 14px 16px !important; }
+  .calc-bottom { grid-template-columns:1fr; gap:8px; }
+  .kpi-val { font-size:1rem; }
+  .kpi-total .kpi-val { font-size:1.05rem; }
+  .chart-wrap { height:170px; }
+  .input-panel { padding:18px 14px; }
+  .info-strip { padding:0 14px 36px; }
+  .info-strip-card { padding:16px 14px; }
+}
 </style>
 </head>
 <body>

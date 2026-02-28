@@ -41,6 +41,42 @@
     .anim-word { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:var(--or); opacity:0; transform:translateY(55px); transition:opacity .45s ease, transform .6s cubic-bezier(.34,1.56,.64,1); pointer-events:none; white-space:nowrap; }
     .anim-word.active { opacity:1; transform:translateY(0); pointer-events:auto; }
     .anim-word.exit { opacity:0; transform:translateY(-45px); transition:opacity .28s ease, transform .32s cubic-bezier(.55,.06,.68,.19); }
+
+    /* ── Mobile ≤768px ──────────────────── */
+    @media(max-width:768px){
+      .team-grid { grid-template-columns:1fr 1fr; gap:14px; margin-top:32px; }
+      .team-photo { aspect-ratio:3/2; }
+      .team-initial { font-size:2.8rem; }
+      .team-info { padding:16px 16px 18px; }
+      .team-name { font-size:.95rem; }
+      .team-role { font-size:.76rem; margin-bottom:8px; }
+      .team-bio { font-size:.78rem; line-height:1.55; }
+      .team-links { margin-top:12px; gap:7px; }
+      .team-link { width:30px; height:30px; border-radius:7px; font-size:.72rem; }
+      .values-grid { grid-template-columns:1fr 1fr; gap:12px; margin-top:32px; }
+      .value-card { padding:20px 16px; border-radius:14px; }
+      .value-icon { font-size:1.6rem; margin-bottom:10px; }
+      .value-title { font-size:.88rem; margin-bottom:5px; }
+      .value-desc { font-size:.78rem; line-height:1.55; }
+      .konzept-layout { grid-template-columns:1fr; gap:32px; padding:40px 0 10px; }
+      .konzept-left { padding-left:0; }
+      .konzept-left .h2 { font-size:clamp(1.5rem,5vw,2rem); margin-bottom:16px; }
+      .konzept-img-wrap { max-width:100%; aspect-ratio:4/3; }
+      .konzept-list { gap:10px; margin-top:20px; }
+      .konzept-list li { font-size:.82rem; gap:10px; }
+      .hero-anim-wrap { height:1.2em; }
+    }
+    @media(max-width:480px){
+      .team-grid { grid-template-columns:1fr; gap:12px; }
+      .team-info { padding:14px 14px 16px; }
+      .team-name { font-size:.9rem; }
+      .team-bio { font-size:.75rem; }
+      .values-grid { grid-template-columns:1fr; gap:10px; }
+      .value-card { padding:18px 14px; }
+      .value-title { font-size:.84rem; }
+      .value-desc { font-size:.75rem; }
+      .konzept-left .h2 { font-size:1.4rem; }
+    }
   </style>
 </head>
 <body>

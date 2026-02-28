@@ -111,6 +111,74 @@
 /* ── FAQ ──────────────────────────────── */
 .faq-section { padding:0 60px 90px; }
 .faq-wrap { max-width:720px; margin:0 auto; }
+
+/* ── Mobile ≤768px ──────────────────── */
+@media(max-width:768px){
+  .hero-h1 { font-size:clamp(1.7rem,6.5vw,2.8rem); }
+  .hero-lead { font-size:.88rem; margin-top:14px; }
+  .hero-anim-wrap { height:1.2em; }
+  .kontakt-section { padding:0 18px 48px; }
+  .kontakt-layout { grid-template-columns:1fr; gap:24px; margin-top:28px; }
+  .info-panel { position:static; }
+  .info-card { padding:24px 20px; border-radius:16px; }
+  .info-title { font-size:.95rem; margin-bottom:18px; }
+  .info-rows { gap:14px; }
+  .info-icon-wrap { width:36px; height:36px; border-radius:9px; }
+  .info-icon-wrap svg { width:15px; height:15px; }
+  .info-row-label { font-size:.72rem; }
+  .info-row-val { font-size:.84rem; }
+  .info-divider { margin:20px 0; }
+  .response-badge { padding:12px 14px; border-radius:10px; gap:10px; }
+  .resp-text { font-size:.78rem; }
+  .resp-text strong { font-size:.82rem; }
+  .social-row { gap:7px; margin-top:12px; }
+  .social-btn { width:36px; height:36px; border-radius:9px; }
+  .social-btn svg { width:14px; height:14px; }
+  .form-card { padding:28px 22px; border-radius:16px; }
+  .form-title { font-size:1.08rem; margin-bottom:6px; }
+  .form-subtitle { font-size:.82rem; margin-bottom:22px; }
+  .topic-buttons { gap:7px; margin-bottom:22px; }
+  .topic-btn { font-size:.76rem; padding:7px 13px; }
+  .submit-row { flex-direction:column; gap:12px; }
+  .submit-note { font-size:.73rem; text-align:center; }
+  .kalender-section { padding:48px 18px 48px; }
+  .booking-widget { grid-template-columns:1fr; margin-top:28px; border-radius:18px; }
+  .cal-panel { border-right:none; border-bottom:1px solid var(--bd); padding:24px 20px; }
+  .cal-month-lbl { font-size:.92rem; }
+  .cal-nav { width:30px; height:30px; }
+  .cal-day { font-size:.78rem; }
+  .slots-panel { padding:24px 20px; min-height:auto; }
+  .slot-date-lbl { font-size:.88rem; margin-bottom:12px; }
+  .slots-grid { gap:6px; }
+  .slot-btn { font-size:.76rem; padding:9px 5px; }
+  .book-confirm { padding:14px; border-radius:12px; }
+  .book-badge-lbl { font-size:.76rem; }
+  .book-badge-sub { font-size:.7rem; }
+  .location-section { padding:0 18px 48px; }
+  .location-card { grid-template-columns:1fr; border-radius:16px; }
+  .location-info { padding:28px 22px; }
+  .location-title { font-size:1rem; margin-bottom:14px; }
+  .loc-details { gap:12px; margin-bottom:20px; }
+  .loc-icon { width:32px; height:32px; border-radius:8px; }
+  .loc-icon svg { width:13px; height:13px; }
+  .loc-text { font-size:.8rem; margin-top:4px; }
+  .map-placeholder { min-height:200px; }
+  .map-pin-dot { width:40px; height:40px; }
+  .map-pin-label { font-size:.76rem; padding:6px 11px; }
+  .faq-section { padding:0 18px 48px; }
+}
+@media(max-width:480px){
+  .hero-h1 { font-size:clamp(1.5rem,7vw,2rem); }
+  .hero-lead { font-size:.82rem; }
+  .info-card { padding:20px 16px; }
+  .form-card { padding:24px 18px; }
+  .form-title { font-size:1rem; }
+  .topic-btn { font-size:.72rem; padding:6px 10px; }
+  .cal-panel { padding:20px 16px; }
+  .slots-panel { padding:20px 16px; }
+  .location-info { padding:22px 18px; }
+  .map-placeholder { min-height:160px; }
+}
 </style>
 </head>
 <body>

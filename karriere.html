@@ -68,6 +68,61 @@
 .p-num { width:56px; height:56px; border-radius:50%; background:var(--or-dim); border:1px solid var(--or-mid); display:flex; align-items:center; justify-content:center; font-size:.95rem; font-weight:800; color:var(--or); margin-bottom:20px; position:relative; z-index:1; }
 .p-step-title { font-size:.95rem; font-weight:700; margin-bottom:8px; }
 .p-step-text { font-size:.82rem; color:var(--mu); line-height:1.65; }
+
+/* ── Mobile ≤768px ──────────────────── */
+@media(max-width:768px){
+  .hero-inner { max-width:100%; }
+  .hero-h1 { font-size:clamp(1.7rem,6.5vw,2.8rem); }
+  .hero-lead { font-size:.88rem; margin-top:14px; }
+  .hero-tag { font-size:.68rem; padding:6px 12px; margin-bottom:16px; }
+  .hero-anim-wrap { height:1.2em; }
+  .values-section { padding:48px 18px; }
+  .val-grid { grid-template-columns:1fr; gap:12px; margin-top:28px; }
+  .val-card { padding:24px 20px; border-radius:16px; }
+  .val-icon { width:44px; height:44px; border-radius:11px; margin-bottom:16px; }
+  .val-title { font-size:.92rem; margin-bottom:7px; }
+  .val-text { font-size:.8rem; line-height:1.6; }
+  .jobs-section { padding:48px 18px 60px; }
+  .jobs-grid { margin-top:28px; gap:12px; }
+  .job-card { padding:20px 18px; flex-direction:column; align-items:flex-start; gap:14px; border-radius:14px; }
+  .job-card:hover { transform:none; }
+  .job-dept { font-size:.68rem; margin-bottom:5px; }
+  .job-title { font-size:.98rem; margin-bottom:8px; }
+  .job-meta { gap:7px; }
+  .job-tag { font-size:.72rem; padding:4px 10px; }
+  .job-arrow { width:38px; height:38px; border-radius:10px; align-self:flex-end; }
+  .initiative-band { margin:0 18px 48px; padding:28px 22px; flex-direction:column; gap:20px; border-radius:20px; }
+  .init-icon { width:56px; height:56px; border-radius:14px; font-size:1.5rem; }
+  .init-title { font-size:1.15rem; margin-bottom:8px; }
+  .init-text { font-size:.82rem; margin-bottom:16px; }
+  .benefits-section { padding:0 18px 48px; }
+  .ben-grid { grid-template-columns:1fr 1fr; gap:10px; margin-top:28px; }
+  .ben-card { padding:20px 16px; border-radius:12px; }
+  .ben-icon { width:40px; height:40px; border-radius:10px; margin-bottom:12px; }
+  .ben-title { font-size:.84rem; margin-bottom:5px; }
+  .ben-text { font-size:.75rem; line-height:1.55; }
+  .process-section { padding:0 18px 60px; }
+  .process-steps { grid-template-columns:1fr 1fr; gap:24px 16px; margin-top:28px; }
+  .process-steps::before { display:none; }
+  .p-num { width:44px; height:44px; font-size:.82rem; margin-bottom:14px; }
+  .p-step { padding:0 8px; }
+  .p-step-title { font-size:.84rem; margin-bottom:5px; }
+  .p-step-text { font-size:.75rem; line-height:1.55; }
+}
+@media(max-width:480px){
+  .hero-h1 { font-size:clamp(1.5rem,7vw,2rem); }
+  .hero-lead { font-size:.82rem; }
+  .val-grid { gap:10px; }
+  .val-card { padding:20px 16px; }
+  .val-title { font-size:.86rem; }
+  .val-text { font-size:.76rem; }
+  .ben-grid { grid-template-columns:1fr; gap:10px; }
+  .ben-card { padding:18px 14px; }
+  .process-steps { grid-template-columns:1fr; gap:20px; }
+  .job-card { padding:18px 16px; }
+  .job-title { font-size:.92rem; }
+  .initiative-band { margin:0 14px 36px; padding:24px 18px; }
+}
 </style>
 </head>
 <body>
