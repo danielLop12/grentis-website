@@ -27,6 +27,7 @@
     .konzept-callout { background:rgba(253,64,0,.06); border:1px solid rgba(253,64,0,.25); border-radius:16px; padding:28px 32px; margin-top:32px; }
     .konzept-callout-label { font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:var(--or); margin-bottom:12px; }
     /* ---- Vorteile ---- */
+    .vorteil-dots { display:none; }
     .vorteil-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:52px; }
     .vorteil-card { background:var(--s1); border:1px solid var(--bd); border-radius:20px; padding:32px 28px; position:relative; overflow:hidden; transition:border-color .3s, transform .3s cubic-bezier(.34,1.56,.64,1); }
     .vorteil-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--or); transform:scaleX(0); transform-origin:left; transition:transform .35s; }
@@ -44,21 +45,38 @@
       .konzept-layout { gap:24px; padding:24px 0 12px; }
       .konzept-left { padding-left:0; }
       .konzept-left .h2 { font-size:clamp(1.3rem,4.5vw,1.8rem); margin-bottom:16px; }
-      .konzept-img-wrap { max-width:100%; aspect-ratio:4/3; border-radius:16px; }
+      .konzept-img-wrap { display:none; }
       .konzept-list li { font-size:.82rem; gap:10px; }
       .konzept-list li::before { width:16px; height:16px; }
       .konzept-callout { padding:20px 18px; margin-top:20px; border-radius:12px; }
       .konzept-callout-label { font-size:.65rem; }
-      .vorteil-grid { margin-top:28px; gap:12px; }
-      .vorteil-card { padding:22px 18px; border-radius:14px; }
-      .vorteil-icon { width:30px; height:30px; border-radius:8px; margin-bottom:12px; }
-      .vorteil-icon svg { width:14px; height:14px; }
-      .vorteil-title { font-size:.88rem; margin-bottom:8px; }
+      .vorteil-section { overflow-x:hidden !important; }
+      .vorteil-grid {
+        display:flex !important; flex-direction:row !important;
+        grid-template-columns:none !important; gap:12px;
+        overflow-x:auto; scroll-snap-type:x mandatory;
+        -webkit-overflow-scrolling:touch; scrollbar-width:none;
+        margin:28px -18px 0; padding-left:18px; padding-right:40px;
+        width:calc(100% + 36px);
+      }
+      .vorteil-grid::-webkit-scrollbar { display:none; }
+      .vorteil-grid .vorteil-card { opacity:1 !important; transform:none !important; }
+      .vorteil-card {
+        width:82vw; min-width:82vw; flex-shrink:0; scroll-snap-align:start;
+        padding:22px 18px; border-radius:16px;
+        background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07);
+        border-left:3px solid var(--or);
+      }
+      .vorteil-icon { width:28px; height:28px; border-radius:7px; margin-bottom:10px; }
+      .vorteil-icon svg { width:13px; height:13px; }
+      .vorteil-title { font-size:.92rem; margin-bottom:8px; line-height:1.2; }
       .vorteil-desc { font-size:.78rem; line-height:1.55; }
+      .vorteil-dots { display:flex !important; justify-content:center; gap:6px; margin-top:14px; }
+      .vorteil-dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.15); transition:background .3s, width .3s; }
+      .vorteil-dot.active { width:20px; border-radius:3px; background:var(--or); }
     }
     @media (max-width:480px) {
       .hero-h1 { font-size:clamp(2rem,9vw,2.8rem); }
-      .vorteil-card { padding:18px 16px; }
     }
   </style>
 </head>
@@ -169,7 +187,7 @@
 </section>
 
 <!-- VORTEILE FÜR ARBEITNEHMER -->
-<section style="padding:0 60px 110px;">
+<section class="vorteil-section" style="padding:0 60px 110px;">
   <div class="reveal" style="text-align:center;max-width:640px;margin:0 auto 0;">
     <div class="section-label" style="justify-content:center;">Vorteile für Ihre Arbeitnehmer</div>
     <h2 class="h2">Was Ihre Mitarbeiter<br>wirklich gewinnen</h2>
@@ -195,6 +213,12 @@
       <div class="vorteil-title">Begeisterung, die messbar ist (&gt;80 % Teilnahme)</div>
       <p class="vorteil-desc">Die Fakten sprechen für sich: In mittelständischen Betrieben erreicht diese Form der Altersversorgung eine herausragende Durchdringungsquote von über 80 %. Das ist fast doppelt so hoch wie bei klassischen, versicherungsförmigen Wegen und beweist eindrucksvoll die enorme Akzeptanz bei den Arbeitnehmern.</p>
     </div>
+  </div>
+  <div class="vorteil-dots">
+    <span class="vorteil-dot active"></span>
+    <span class="vorteil-dot"></span>
+    <span class="vorteil-dot"></span>
+    <span class="vorteil-dot"></span>
   </div>
 </section>
 
@@ -284,6 +308,18 @@ document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click
   document.body.classList.remove('nav-open');
   document.querySelectorAll('.has-drop.open').forEach(el => el.classList.remove('open'));
 }));
+
+/* ── Swipe dots for vorteil cards ── */
+(function() {
+  const grid = document.querySelector('.vorteil-grid');
+  const dots = document.querySelectorAll('.vorteil-dot');
+  if (!grid || !dots.length) return;
+  grid.addEventListener('scroll', function() {
+    const cardWidth = grid.firstElementChild.offsetWidth + 12;
+    const idx = Math.round(grid.scrollLeft / cardWidth);
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  }, { passive: true });
+})();
 </script>
 </body>
 </html>
