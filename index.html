@@ -591,14 +591,15 @@
   .trust-left > div:last-child { order:5; } /* CTA wrapper */
   /* Swipeable cards row */
   .trust-cards {
-    flex-direction:row !important; gap:12px;
+    display:flex !important; flex-direction:row !important; gap:12px;
     overflow-x:auto; scroll-snap-type:x mandatory;
     -webkit-overflow-scrolling:touch; scrollbar-width:none;
     padding-bottom:4px; margin:0 -18px 0; padding-left:18px; padding-right:40px;
+    width:calc(100% + 36px);
   }
   .trust-cards::-webkit-scrollbar { display:none; }
   .trust-metric-card {
-    min-width:calc(100vw - 72px); flex-shrink:0; scroll-snap-align:start;
+    width:82vw; min-width:82vw; flex-shrink:0; scroll-snap-align:start;
     padding:24px 22px 20px; border-radius:16px;
     background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07);
     border-left:3px solid var(--or);
