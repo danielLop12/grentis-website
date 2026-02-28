@@ -125,6 +125,7 @@
       .law-pill { font-size:.68rem; padding:4px 10px; }
       .konzept-cta { padding:11px 20px; font-size:.82rem; margin-top:20px; }
       .konzept-img-wrap { display:none; }
+      .vorteil-section { overflow-x:hidden !important; }
       .vorteil-grid {
         display:flex !important; flex-direction:row !important;
         grid-template-columns:none !important; gap:12px;
@@ -133,6 +134,7 @@
         margin:28px -18px 0; padding-left:18px; padding-right:40px;
         width:calc(100% + 36px);
       }
+      .vorteil-grid .vorteil-card { opacity:1 !important; transform:none !important; }
       .vorteil-grid::-webkit-scrollbar { display:none; }
       .vorteil-card {
         width:82vw; min-width:82vw; flex-shrink:0; scroll-snap-align:start;
@@ -266,7 +268,7 @@
 </section>
 
 <!-- VORTEILE -->
-<section style="padding:0 60px 110px;">
+<section class="vorteil-section" style="padding:0 60px 110px;">
   <div class="reveal" style="text-align:center;max-width:620px;margin:0 auto;">
     <div class="section-label" style="justify-content:center;">Ihre strategischen Vorteile</div>
     <h2 class="h2">Was Sie mit dem<br>Grentis-Konzept gewinnen</h2>
