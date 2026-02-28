@@ -57,6 +57,7 @@ input[type=range]:disabled { opacity:.45; cursor:default; }
 .calc-cta-btn:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgba(253,64,0,.4); }
 .calc-cta-btn:active { transform:translateY(0); }
 .calc-cta-btn:focus-visible { outline:2px solid var(--or); outline-offset:3px; }
+.cta-text-short { display:none; }
 
 /* Chart card */
 .chart-card { background:var(--s1); border:1px solid var(--bd); border-radius:18px; padding:22px 20px; }
@@ -102,10 +103,14 @@ input[type=range]:disabled { opacity:.45; cursor:default; }
   .sg-val { font-size:.8rem; padding:3px 9px; min-width:60px; }
   .sg-input { font-size:.8rem; width:68px; padding:3px 6px; }
   .sg-mark { font-size:.62rem; }
-  .calc-bottom { grid-template-columns:1fr 1fr; gap:8px; }
-  .kpi-card { padding:14px 14px; border-radius:10px; }
+  .calc-bottom { display:flex !important; flex-wrap:wrap; gap:8px; }
+  .calc-bottom .kpi-card:nth-child(2),
+  .calc-bottom .kpi-card:nth-child(4) { display:none; }
+  .kpi-card { padding:14px 14px; border-radius:10px; flex:1 1 calc(50% - 4px); min-width:0; }
   .kpi-label { font-size:.62rem; margin-bottom:5px; }
   .kpi-val { font-size:1.1rem; }
+  .cta-text-full { display:none; }
+  .cta-text-short { display:inline; }
   .kpi-total { padding:14px 16px; border-radius:10px; }
   .kpi-total .kpi-label { font-size:.65rem; }
   .kpi-total .kpi-val { font-size:1.15rem; }
@@ -132,7 +137,6 @@ input[type=range]:disabled { opacity:.45; cursor:default; }
 }
 @media(max-width:480px){
   .calc-section { padding:90px 14px 16px !important; }
-  .calc-bottom { grid-template-columns:1fr; gap:8px; }
   .kpi-val { font-size:1rem; }
   .kpi-total .kpi-val { font-size:1.05rem; }
   .chart-wrap { height:170px; }
@@ -235,7 +239,7 @@ input[type=range]:disabled { opacity:.45; cursor:default; }
       <div class="kpi-val" id="kpi-wert">—</div>
     </div>
 
-    <a href="kontakt.html#kalender" class="calc-cta-btn" style="margin-top:32px;">Kostenlose individuelle Hochrechnung anfordern <svg width="16" height="16" viewBox="0 0 15 15" fill="none"><path d="M2.5 7.5h10M8.5 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="kontakt.html#kalender" class="calc-cta-btn" style="margin-top:32px;"><span class="cta-text-full">Kostenlose individuelle Hochrechnung anfordern</span><span class="cta-text-short">Individuelle Hochrechnung beantragen</span> <svg width="16" height="16" viewBox="0 0 15 15" fill="none"><path d="M2.5 7.5h10M8.5 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
 
     <p class="disclaimer">* Alle Berechnungen basieren auf vereinfachten Annahmen und dienen der ersten Orientierung. Sie ersetzen keine individuelle steuerliche oder rechtliche Beratung. Grentis GmbH übernimmt keine Gewähr für die Richtigkeit der Hochrechnungen.</p>
   </div>
