@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/loesung",
+      "destination": "/unternehmen",
+      "permanent": true
+    },
+    {
+      "source": "/ueber-grentis",
+      "destination": "/team",
+      "permanent": true
+    }
+  ]
+}
