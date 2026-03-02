@@ -1,4 +1,11 @@
 {
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/home",
+      "destination": "/"
+    }
+  ],
   "redirects": [
     {
       "source": "/loesung",
